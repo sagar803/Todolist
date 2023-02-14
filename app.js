@@ -1,5 +1,4 @@
-//jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -13,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb+srv://admin-sagar:sagar1234@cluster0.osncdec.mongodb.net/todolistDB", {useNewUrlParser: true} );
+mongoose.connect("mongodb+srv://"+process.env.DB_USERNAME+":"+process.env.DB_PASSWORD+"@cluster0.osncdec.mongodb.net/"+process.env.DB_NAME, {useNewUrlParser: true} );
 
 const itemsSchema = {
   name: String
@@ -22,15 +21,15 @@ const itemsSchema = {
 const Item = mongoose.model("Item", itemsSchema);
 
 const item1 = new Item({
-  name: "welcome to your todolist!"
+  name: "Welcome to todolist!"
 })
 
 const item2 = new Item({
-  name: "Hit the + button to add a new item."
+  name: "It supports custom routing - https://url/YourCustomRoute"
 })
 
 const item3 = new Item({
-  name: "<-- hit this to delete an item."
+  name: "Backed by mongoDB, CRUD OPERATION"
 })
 
 const defaultItems = [item1, item2, item3];
